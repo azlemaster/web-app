@@ -49,6 +49,24 @@
         v-if="$store.state.isUserLoggedIn"
         flat 
         dark
+        :to="{
+          name: 'profil'
+        }">
+        {{userName}}
+      </v-btn>
+      <v-btn 
+        v-if="$store.state.isUserLoggedIn"
+        flat 
+        dark
+        :to="{
+          name: 'your_events'
+        }">
+        Your Events
+      </v-btn>
+      <v-btn 
+        v-if="$store.state.isUserLoggedIn"
+        flat 
+        dark
         @click="logout">
         Log Out
       </v-btn>
@@ -58,6 +76,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+      userName: this.$store.getters.getUserName
+    }
+  },
   methods: {
     logout () {
       this.$store.dispatch('setToken', null)
@@ -65,6 +88,11 @@ export default {
       this.$router.push({
         name: 'songs'
       })
+    }
+  },
+  computed: {
+    getUserName () {
+      return 'ok'
     }
   }
 }

@@ -6,6 +6,8 @@ import Songs from '@/components/Songs/Index'
 import CreateSong from '@/components/CreateSong'
 import EditSong from '@/components/EditSong'
 import ViewSong from '@/components/ViewSong/Index'
+import Profil from '@/components/Profil'
+import YourEvents from '@/components/YourEvents'
 
 Vue.use(Router)
 
@@ -20,6 +22,16 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/profil',
+      name: 'profil',
+      component: Profil
+    },
+    {
+      path: '/your_events',
+      name: 'your_events',
+      component: YourEvents
     },
     {
       path: '/songs',
