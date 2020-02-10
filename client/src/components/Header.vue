@@ -89,11 +89,6 @@ export default {
         name: 'songs'
       })
     }
-  },
-  computed: {
-    getUserName () {
-      return 'ok'
-    }
   }
 }
 </script>
