@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
-import Songs from '@/components/Songs/Index'
-import CreateSong from '@/components/CreateSong'
-import EditSong from '@/components/EditSong'
-import ViewSong from '@/components/ViewSong/Index'
+import Events from '@/components/Events/Index'
+import CreateEvent from '@/components/CreateEvent'
+import EditEvent from '@/components/EditEvent'
+import ViewEvent from '@/components/ViewEvent/Index'
 import Profil from '@/components/Profil'
 import YourEvents from '@/components/YourEvents'
 
@@ -34,28 +34,28 @@ export default new Router({
       component: YourEvents
     },
     {
-      path: '/songs',
-      name: 'songs',
-      component: Songs
+      path: '/events',
+      name: 'events',
+      component: Events
     },
     {
-      path: '/songs/create',
-      name: 'songs-create',
-      component: CreateSong
+      path: '/events/create',
+      name: 'events-create',
+      component: CreateEvent
     },
     {
-      path: '/songs/:songId',
-      name: 'song',
-      component: ViewSong
+      path: '/events/:eventId',
+      name: 'event',
+      component: ViewEvent
     },
     {
-      path: '/songs/:songId/edit',
-      name: 'song-edit',
-      component: EditSong
+      path: '/events/:eventId/edit',
+      name: 'event-edit',
+      component: EditEvent
     },
     {
       path: '*',
-      redirect: 'songs'
+      redirect: 'events'
     }
   ]
 })

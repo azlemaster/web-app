@@ -1,67 +1,67 @@
 <template>
   <v-layout>
     <v-flex xs4>
-      <panel title="Song Metadata">
+      <panel title="Event Metadata">
         <v-text-field
           label="Title"
           required
           :rules="[required]"
-          v-model="song.title"
+          v-model="event.title"
         ></v-text-field>
 
         <v-text-field
-          label="Artist"
+          label="Owner"
           required
           :rules="[required]"
-          v-model="song.artist"
+          v-model="event.owner"
         ></v-text-field>
 
         <v-text-field
           label="Genre"
           required
           :rules="[required]"
-          v-model="song.genre"
+          v-model="event.genre"
         ></v-text-field>
 
         <v-text-field
-          label="Album"
+          label="City"
           required
           :rules="[required]"
-          v-model="song.album"
+          v-model="event.city"
         ></v-text-field>
 
         <v-text-field
-          label="Album Image Url"
+          label="Event Image Url"
           required
           :rules="[required]"
-          v-model="song.albumImageUrl"
+          v-model="event.eventImageUrl"
         ></v-text-field>
 
         <v-text-field
-          label="YouTube ID"
+          label="Date"
           required
           :rules="[required]"
-          v-model="song.youtubeId"
+          v-model="event.date"
         ></v-text-field>
       </panel>
     </v-flex>
 
     <v-flex xs8>
-      <panel title="Song Structure" class="ml-2">
+      <panel title="Liink of Payement" class="ml-2">
         <v-text-field
           label="Tab"
           multi-line
           required
           :rules="[required]"
-          v-model="song.tab"
+          v-model="event.payLink"
         ></v-text-field>
 
         <v-text-field
-          label="Lyrics"
+          label="Description"
           multi-line
           required
           :rules="[required]"
-          v-model="song.lyrics"
+          v-model="event.description"
         ></v-text-field>
       </panel>
 
@@ -73,27 +73,27 @@
         dark
         class="cyan"
         @click="create">
-        Create Song
+        Create Event
       </v-btn>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import SongsService from '@/services/SongsService'
+import EventsService from '@/services/EventsService'
 
 export default {
   data () {
     return {
-      song: {
+      event: {
         title: null,
-        artist: null,
+        owner: null,
         genre: null,
-        album: null,
-        albumImageUrl: null,
-        youtubeId: null,
-        lyrics: null,
-        tab: null
+        city: null,
+        eventImageUrl: null,
+        payLink: null,
+        description: null,
+        date: null
       },
       error: null,
       required: (value) => !!value || 'Required.'
@@ -103,17 +103,17 @@ export default {
     async create () {
       this.error = null
       const areAllFieldsFilledIn = Object
-        .keys(this.song)
-        .every(key => !!this.song[key])
+        .keys(this.event)
+        .every(key => !!this.event[key])
       if (!areAllFieldsFilledIn) {
         this.error = 'Please fill in all the required fields.'
         return
       }
 
       try {
-        await SongsService.post(this.song)
+        await EventsService.post(this.event)
         this.$router.push({
-          name: 'songs'
+          name: 'events'
         })
       } catch (err) {
         console.log(err)

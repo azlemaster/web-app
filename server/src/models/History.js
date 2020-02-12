@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
 
   History.associate = function (models) {
     History.belongsTo(models.User)
-    History.belongsTo(models.Song)
+    History.belongsTo(models.Event)
   }
 
   return History

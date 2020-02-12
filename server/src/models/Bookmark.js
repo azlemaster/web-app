@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Bookmark.associate = function (models) {
     Bookmark.belongsTo(models.User)
-    Bookmark.belongsTo(models.Song)
+    Bookmark.belongsTo(models.Event)
   }
 
   return Bookmark
