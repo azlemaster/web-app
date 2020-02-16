@@ -26,7 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    city: DataTypes.STRING,
+    profilImageUrl: DataTypes.STRING,
+    description: DataTypes.TEXT
   }, {
     hooks: {
       beforeCreate: hashPassword,

@@ -16,6 +16,22 @@
           ></v-text-field>
           <br>
           <v-text-field
+            label="City"
+            v-model="city"
+          ></v-text-field>
+          <br>
+          <v-text-field
+            label="Description"
+            multi-line
+            v-model="description"
+          ></v-text-field>
+          <br>
+          <v-text-field
+            label="profil Image url"
+            v-model="profilImageUrl"
+          ></v-text-field>
+          <br>
+          <v-text-field
             label="Password"
             type="password"
             v-model="password"
@@ -45,6 +61,9 @@ export default {
       email: '',
       password: '',
       name: '',
+      city: '',
+      description: '',
+      profilImageUrl: '',
       error: null
     }
   },
@@ -54,7 +73,10 @@ export default {
         const response = await AuthenticationService.register({
           email: this.email,
           name: this.name,
-          password: this.password
+          password: this.password,
+          city: this.city,
+          description: this.description,
+          profilImageUrl: this.profilImageUrl
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
