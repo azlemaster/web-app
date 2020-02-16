@@ -39,6 +39,7 @@
 
         <v-text-field
           label="Date"
+          type="date"
           required
           :rules="[required]"
           v-model="event.date"
@@ -47,12 +48,9 @@
     </v-flex>
 
     <v-flex xs8>
-      <panel title="Liink of Payement" class="ml-2">
+      <panel title="Informations" class="ml-2">
         <v-text-field
-          label="Tab"
-          multi-line
-          required
-          :rules="[required]"
+          label="link of payment"
           v-model="event.payLink"
         ></v-text-field>
 
@@ -64,6 +62,10 @@
           v-model="event.description"
         ></v-text-field>
       </panel>
+
+      <!--<panel title="Informations" class="ml-2">
+        <HereAddressLookup :query="query"/>     
+      </panel>-->
 
       <div class="danger-alert" v-if="error">
         {{error}}
@@ -81,8 +83,12 @@
 
 <script>
 import EventsService from '@/services/EventsService'
+import HereAddressLookup from './HereAddressLookup'
 
 export default {
+  components: {
+    HereAddressLookup
+  },
   data () {
     return {
       event: {
@@ -95,6 +101,7 @@ export default {
         description: null,
         date: null
       },
+      query: '',
       error: null,
       required: (value) => !!value || 'Required.'
     }
