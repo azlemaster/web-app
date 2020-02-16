@@ -10,13 +10,6 @@
         ></v-text-field>
 
         <v-text-field
-          label="Owner"
-          required
-          :rules="[required]"
-          v-model="event.owner"
-        ></v-text-field>
-
-        <v-text-field
           label="Genre"
           required
           :rules="[required]"
@@ -93,7 +86,7 @@ export default {
     return {
       event: {
         title: null,
-        owner: null,
+        owner: this.$store.getters.getUserName,
         genre: null,
         city: null,
         eventImageUrl: null,

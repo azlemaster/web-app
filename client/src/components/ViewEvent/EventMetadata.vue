@@ -1,25 +1,38 @@
 <template>
-  <panel title="Song Metadata">
+  <panel title="Event">
     <v-layout>
       <v-flex xs6>
-        <div class="song-title">
-          {{song.title}}
+        <div class="event-title">
+          {{event.title}}
         </div>
-        <div class="song-artist">
-          {{song.artist}}
+        <div class="event-owner">
+          {{event.owner}}
         </div>
-        <div class="song-genre">
-          {{song.genre}}
+        <div class="event-genre">
+          {{event.genre}}
         </div>
-
+        <div class="event-date">
+          {{event.date}}
+        </div>
+        <div class="event-city">
+          {{event.city}}
+        </div>
+        
         <v-btn
           dark
           class="cyan"
+          @click="paymentLink">
+          Booking
+        </v-btn>
+        <v-btn
+          v-if="this.$store.getters.getUserName == event.owner"
+          dark
+          class="cyan"
           :to="{
-            name: 'song-edit', 
+            name: 'event-edit', 
             params () {
               return {
-                songId: song.id
+                eventId: event.id
               }
             }
           }">
@@ -31,7 +44,7 @@
           dark
           class="cyan"
           @click="setAsBookmark">
-          Set As Bookmark
+          Follow
         </v-btn>
 
         <v-btn
@@ -39,14 +52,13 @@
           dark
           class="cyan"
           @click="unsetAsBookmark">
-          Unset As Bookmark
+          Unfollow
         </v-btn>
       </v-flex>
 
       <v-flex xs6>
-        <img class="album-image" :src="song.albumImageUrl" />
+        <img class="event-image" :src="event.eventImageUrl" />
         <br>
-        {{song.album}}
       </v-flex>
     </v-layout>
   </panel>
@@ -58,7 +70,7 @@ import BookmarksService from '@/services/BookmarksService'
 
 export default {
   props: [
-    'song'
+    'event'
   ],
   data () {
     return {
@@ -72,14 +84,14 @@ export default {
     ])
   },
   watch: {
-    async song () {
+    async event () {
       if (!this.isUserLoggedIn) {
         return
       }
 
       try {
         const bookmarks = (await BookmarksService.index({
-          songId: this.song.id
+          eventId: this.event.id
         })).data
         if (bookmarks.length) {
           this.bookmark = bookmarks[0]
@@ -93,7 +105,7 @@ export default {
     async setAsBookmark () {
       try {
         this.bookmark = (await BookmarksService.post({
-          songId: this.song.id
+          eventId: this.event.id
         })).data
       } catch (err) {
         console.log(err)
@@ -106,31 +118,34 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    async paymentLink () {
+      window.open(this.event.payLink)
     }
   }
 }
 </script>
 
 <style scoped>
-.song {
+.event {
   padding: 20px;
   height: 330px;
   overflow: hidden;
 }
 
-.song-title {
+.event-title {
   font-size: 30px;
 }
 
-.song-artist {
+.event-owner {
   font-size: 24px;
 }
 
-.song-genre {
+.event-genre {
   font-size: 18px;
 }
 
-.album-image {
+.event-image {
   width: 70%;
   margin: 0 auto;
 }
