@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     owner: DataTypes.STRING,
     genre: DataTypes.STRING,
-    paid: DataTypes.BOOLEAN,
     date: DataTypes.DATE,
     city: DataTypes.STRING,
     eventImageUrl: DataTypes.STRING,
