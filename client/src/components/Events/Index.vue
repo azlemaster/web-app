@@ -57,7 +57,7 @@ export default {
   font-size: 30px;
 }
 
-.event-artist {
+.event-owner {
   font-size: 24px;
 }
 
