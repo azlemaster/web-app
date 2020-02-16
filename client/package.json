@@ -14,6 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "@mdi/js": "^4.9.95",
     "axios": "^0.19.2",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.1",

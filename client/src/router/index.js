@@ -8,6 +8,7 @@ import EditEvent from '@/components/EditEvent'
 import ViewEvent from '@/components/ViewEvent/Index'
 import Profil from '@/components/Profil'
 import YourEvents from '@/components/YourEvents'
+import AccountEdit from '@/components/AccountEdit'
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ export default new Router({
       path: '/events/:eventId/edit',
       name: 'event-edit',
       component: EditEvent
+    },
+    {
+      path: '/profil/edit',
+      name: 'account-edit',
+      component: AccountEdit
     },
     {
       path: '*',
