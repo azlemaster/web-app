@@ -1,6 +1,6 @@
 const {
   History,
-  Song
+  Event
 } = require('../models')
 const _ = require('lodash')
 
@@ -14,7 +14,7 @@ module.exports = {
         },
         include: [
           {
-            model: Song
+            model: Event
           }
         ],
         order: [
@@ -24,10 +24,10 @@ module.exports = {
         .map(history => history.toJSON())
         .map(history => _.extend(
           {},
-          history.Song,
+          history.Event,
           history
         ))
-      res.send(_.uniqBy(histories, history => history.SongId))
+      res.send(_.uniqBy(histories, history => history.EventId))
     } catch (err) {
       res.status(500).send({
         error: 'an error has occured trying to fetch the history'
@@ -37,9 +37,9 @@ module.exports = {
   async post (req, res) {
     try {
       const userId = req.user.id
-      const {songId} = req.body
+      const {eventId} = req.body
       const history = await History.create({
-        SongId: songId,
+        EventId: eventId,
         UserId: userId
       })
       res.send(history)

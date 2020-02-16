@@ -5,7 +5,7 @@
         class="home"
         tag="span"
         :to="{
-          name: 'songs'
+          name: 'events'
         }">
         TabTracker
       </router-link>
@@ -16,7 +16,7 @@
         flat 
         dark
         :to="{
-          name: 'songs'
+          name: 'events'
         }">
         Browse
       </v-btn>
@@ -86,7 +86,7 @@ export default {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
       this.$router.push({
-        name: 'songs'
+        name: 'events'
       })
     }
   }

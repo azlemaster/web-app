@@ -1,9 +1,9 @@
 <template>
-  <panel title="Songs">
+  <panel title="Events">
     <v-btn
       slot="action"
       :to="{
-        name: 'songs-create'
+        name: 'events-create'
       }"
       class="cyan accent-2"
       light
@@ -16,29 +16,29 @@
     </v-btn>
 
     <div 
-      v-for="song in songs"
-      class="song"
-      :key="song.id">
+      v-for="event in events"
+      class="event"
+      :key="event.id">
 
       <v-layout>
         <v-flex xs6>
-          <div class="song-title">
-            {{song.title}}
+          <div class="event-title">
+            {{event.title}}
           </div>
-          <div class="song-artist">
-            {{song.artist}}
+          <div class="event-artist">
+            {{event.owner}}
           </div>
-          <div class="song-genre">
-            {{song.genre}}
+          <div class="event-genre">
+            {{event.genre}}
           </div>
 
           <v-btn
             dark
             class="cyan"
             :to="{
-              name: 'song', 
+              name: 'event', 
               params: {
-                songId: song.id
+                eventId: event.id
               }
             }">
             View
@@ -46,7 +46,7 @@
         </v-flex>
 
         <v-flex xs6>
-          <img class="album-image" :src="song.albumImageUrl" />
+          <img class="event-image" :src="event.eventImageUrl" />
         </v-flex>
       </v-layout>
     </div>
@@ -54,19 +54,19 @@
 </template>
 
 <script>
-import SongsService from '@/services/SongsService'
+import EventsService from '@/services/EventsService'
 
 export default {
   data () {
     return {
-      songs: null
+      events: null
     }
   },
   watch: {
     '$route.query.search': {
       immediate: true,
       async handler (value) {
-        this.songs = (await SongsService.index(value)).data
+        this.events = (await EventsService.index(value)).data
       }
     }
   }
@@ -74,25 +74,25 @@ export default {
 </script>
 
 <style scoped>
-.song {
+.event {
   padding: 20px;
   height: 330px;
   overflow: hidden;
 }
 
-.song-title {
+.event-title {
   font-size: 30px;
 }
 
-.song-artist {
+.event-artist {
   font-size: 24px;
 }
 
-.song-genre {
+.event-genre {
   font-size: 18px;
 }
 
-.album-image {
+.event-image {
   width: 70%;
   margin: 0 auto;
 }

@@ -11,6 +11,11 @@
           ></v-text-field>
           <br>
           <v-text-field
+            label="Account Name"
+            v-model="name"
+          ></v-text-field>
+          <br>
+          <v-text-field
             label="Password"
             type="password"
             v-model="password"
@@ -39,6 +44,7 @@ export default {
     return {
       email: '',
       password: '',
+      name: '',
       error: null
     }
   },
@@ -47,12 +53,13 @@ export default {
       try {
         const response = await AuthenticationService.register({
           email: this.email,
+          name: this.name,
           password: this.password
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
         this.$router.push({
-          name: 'songs'
+          name: 'events'
         })
       } catch (error) {
         this.error = error.response.data.error

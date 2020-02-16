@@ -33,7 +33,7 @@ export default new Vuex.Store({
   },
   getters: {
     getUserName: state => {
-      return state.user.email
+      return state.user.name
     }
   }
 })

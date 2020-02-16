@@ -1,6 +1,6 @@
 const {
   Bookmark,
-  Song
+  Event
 } = require('../models')
 const _ = require('lodash')
 
@@ -8,25 +8,25 @@ module.exports = {
   async index (req, res) {
     try {
       const userId = req.user.id
-      const {songId} = req.query
+      const {eventId} = req.query
       const where = {
         UserId: userId
       }
-      if (songId) {
-        where.SongId = songId
+      if (eventId) {
+        where.EventId = eventId
       }
       const bookmarks = await Bookmark.findAll({
         where: where,
         include: [
           {
-            model: Song
+            model: Event
           }
         ]
       })
         .map(bookmark => bookmark.toJSON())
         .map(bookmark => _.extend(
           {},
-          bookmark.Song,
+          bookmark.Event,
           bookmark
         ))
       res.send(bookmarks)
@@ -39,10 +39,10 @@ module.exports = {
   async post (req, res) {
     try {
       const userId = req.user.id
-      const {songId} = req.body
+      const {eventId} = req.body
       const bookmark = await Bookmark.findOne({
         where: {
-          SongId: songId,
+          EventId: eventId,
           UserId: userId
         }
       })
@@ -52,7 +52,7 @@ module.exports = {
         })
       }
       const newBookmark = await Bookmark.create({
-        SongId: songId,
+        EventId: eventId,
         UserId: userId
       })
       res.send(newBookmark)

@@ -1,15 +1,15 @@
-const {Song} = require('../models')
+const {Event} = require('../models')
 
 module.exports = {
   async index (req, res) {
     try {
-      let songs = null
+      let events = null
       const search = req.query.search
       if (search) {
-        songs = await Song.findAll({
+        events = await Event.findAll({
           where: {
             $or: [
-              'title', 'artist', 'genre', 'album'
+              'title', 'owner', 'genre', 'city'
             ].map(key => ({
               [key]: {
                 $like: `%${search}%`
@@ -18,11 +18,11 @@ module.exports = {
           }
         })
       } else {
-        songs = await Song.findAll({
+        events = await Event.findAll({
           limit: 10
         })
       }
-      res.send(songs)
+      res.send(events)
     } catch (err) {
       res.status(500).send({
         error: 'an error has occured trying to fetch the songs'
@@ -31,8 +31,8 @@ module.exports = {
   },
   async show (req, res) {
     try {
-      const song = await Song.findById(req.params.songId)
-      res.send(song)
+      const event = await Event.findById(req.params.eventId)
+      res.send(event)
     } catch (err) {
       res.status(500).send({
         error: 'an error has occured trying to show the songs'
@@ -41,8 +41,8 @@ module.exports = {
   },
   async post (req, res) {
     try {
-      const song = await Song.create(req.body)
-      res.send(song)
+      const event = await Event.create(req.body)
+      res.send(event)
     } catch (err) {
       res.status(500).send({
         error: 'an error has occured trying to create the song'
@@ -51,9 +51,9 @@ module.exports = {
   },
   async put (req, res) {
     try {
-      await Song.update(req.body, {
+      await Event.update(req.body, {
         where: {
-          id: req.params.songId
+          id: req.params.eventId
         }
       })
       res.send(req.body)

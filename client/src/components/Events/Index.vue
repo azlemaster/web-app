@@ -1,34 +1,34 @@
 <template>
   <v-layout>
     <v-flex xs6 v-if="isUserLoggedIn">
-      <songs-bookmarks />
-      <recently-viewed-songs class="mt-2" />
+      <events-bookmarks />
+      <recently-viewed-events class="mt-2" />
     </v-flex>
 
     <v-flex :class="{
         xs12: !isUserLoggedIn,
         xs6: isUserLoggedIn
       }" class="ml-2">
-      <songs-search-panel />
-      <songs-panel class="mt-2" />
+      <events-search-panel />
+      <events-panel class="mt-2" />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import SongsPanel from './SongsPanel'
-import SongsBookmarks from './SongsBookmarks'
-import RecentlyViewedSongs from './RecentlyViewedSongs'
-import SongsSearchPanel from './SongsSearchPanel'
-import SongsService from '@/services/SongsService'
+import EventsPanel from './EventsPanel'
+import EventsBookmarks from './EventsBookmarks'
+import RecentlyViewedEvents from './RecentlyViewedEvents'
+import EventsSearchPanel from './EventsSearchPanel'
+import EventsService from '@/services/EventsService'
 import {mapState} from 'vuex'
 
 export default {
   components: {
-    SongsPanel,
-    SongsSearchPanel,
-    SongsBookmarks,
-    RecentlyViewedSongs
+    EventsPanel,
+    EventsSearchPanel,
+    EventsBookmarks,
+    RecentlyViewedEvents
   },
   computed: {
     ...mapState([
@@ -37,35 +37,35 @@ export default {
   },
   data () {
     return {
-      songs: null
+      events: null
     }
   },
   async mounted () {
-    this.songs = (await SongsService.index()).data
+    this.events = (await EventsService.index()).data
   }
 }
 </script>
 
 <style scoped>
-.song {
+.event {
   padding: 20px;
   height: 330px;
   overflow: hidden;
 }
 
-.song-title {
+.event-title {
   font-size: 30px;
 }
 
-.song-artist {
+.event-artist {
   font-size: 24px;
 }
 
-.song-genre {
+.event-genre {
   font-size: 18px;
 }
 
-.album-image {
+.event-image {
   width: 70%;
   margin: 0 auto;
 }
