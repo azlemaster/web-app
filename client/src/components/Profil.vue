@@ -10,7 +10,7 @@
           dark
           class="cyan"
           :to="{
-            name: 'account-edit', 
+            name: 'account-edit'
           }">
           Edit Account
         </v-btn>
@@ -32,7 +32,8 @@ export default {
   },
   data () {
     return {
-      events: null
+      events: null,
+      userId: this.$store.getters.getUserId
     }
   },
   computed: {

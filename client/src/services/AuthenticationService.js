@@ -6,5 +6,8 @@ export default {
   },
   login (credentials) {
     return Api().post('login', credentials)
+  },
+  put (user) {
+    return Api().put(`profil`, user)
   }
 }
