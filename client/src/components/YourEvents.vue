@@ -2,7 +2,7 @@
   <panel :title="user.name">
     <v-layout>
       <v-flex xs12>
-        
+      </v-flex> 
     </v-layout>
   </panel>
 </template>

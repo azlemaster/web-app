@@ -1,35 +1,43 @@
 <template>
   <v-layout>
-    <v-text-field
-          label="Street"
-          required
-          :rules="[required]"
-          v-model="street"
-    ></v-text-field>
-    <v-text-field
-          label="city"
-          required
-          :rules="[required]"
-          v-model="city"
-    ></v-text-field>
-    <v-text-field
-          label="state"
-          required
-          :rules="[required]"
-          v-model="state"
-    ></v-text-field>
-    <v-text-field
-          label="postcode"
-          required
-          :rules="[required]"
-          v-model="postcode"
-    ></v-text-field>
-    <v-text-field
-          label="country"
-          required
-          :rules="[required]"
-          v-model="country"
-    ></v-text-field>
+    <v-flex xs8>
+      <v-text-field
+        label="Search for an address her "
+        required
+        v-on:input="query"
+      ></v-text-field>
+      <br/>
+      <v-text-field
+        label="Street"
+        required
+        :rules="[required]"
+        v-model="street"
+      ></v-text-field>
+      <v-text-field
+        label="city"
+        required
+        :rules="[required]"
+        v-model="city"
+      ></v-text-field>
+     <v-text-field
+        label="state"
+        required
+        :rules="[required]"
+        v-model="state"
+      ></v-text-field>
+      <v-text-field
+        label="postcode"
+        required
+        :rules="[required]"
+        v-model="postcode"
+      ></v-text-field>
+      <v-text-field
+        label="country"
+        required
+        :rules="[required]"
+        v-model="country"
+      ></v-text-field>
+    </v-flex>
   </v-layout>
 </template>
 <script>
@@ -46,10 +54,21 @@
         required: (value) => !!value || 'Required.'
       }
     },
-    props: {
-      query: String
-    },
     watch: {
+    },
+    methods: {
+      validate: function (query) {
+        return fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=1ZRKH9KT9Pp92wxwUyT3m0iPudSL0rvlLmvaFunOtRY&searchtext=${query}`)
+            .then(result => result.json())
+            .then(result => {
+              if (result.Response.View.length > 0 && result.Response.View[0].Result.length > 0) {
+                let data = result.Response.View[0].Result[0]
+                return data
+              }
+            }, error => {
+              console.error(error)
+            })
+      },
       query: function (value) {
         fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=1ZRKH9KT9Pp92wxwUyT3m0iPudSL0rvlLmvaFunOtRY&query=${value}`)
           .then(result => result.json())
@@ -74,20 +93,6 @@
           }, error => {
             console.error(error)
           })
-      }
-    },
-    methods: {
-      validate: function (query) {
-        return fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=1ZRKH9KT9Pp92wxwUyT3m0iPudSL0rvlLmvaFunOtRY&searchtext=${query}`)
-            .then(result => result.json())
-            .then(result => {
-              if (result.Response.View.length > 0 && result.Response.View[0].Result.length > 0) {
-                let data = result.Response.View[0].Result[0]
-                return data
-              }
-            }, error => {
-              console.error(error)
-            })
       }
     }
   }

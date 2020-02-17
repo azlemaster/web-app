@@ -17,13 +17,6 @@
         ></v-text-field>
 
         <v-text-field
-          label="City"
-          required
-          :rules="[required]"
-          v-model="event.city"
-        ></v-text-field>
-
-        <v-text-field
           label="Event Image Url"
           required
           :rules="[required]"
@@ -41,6 +34,45 @@
     </v-flex>
 
     <v-flex xs8>
+      <panel title="Address" class="ml-2">
+        <v-text-field
+        label="Search for an address her "
+        required
+        v-on:input="query"
+      ></v-text-field>
+      <br/>
+      <v-text-field
+        label="Street"
+        required
+        :rules="[required]"
+        v-model="event.street"
+      ></v-text-field>
+      <v-text-field
+        label="city"
+        required
+        :rules="[required]"
+        v-model="event.city"
+      ></v-text-field>
+     <v-text-field
+        label="state"
+        required
+        :rules="[required]"
+        v-model="event.state"
+      ></v-text-field>
+      <v-text-field
+        label="postcode"
+        required
+        :rules="[required]"
+        v-model="event.postcode"
+      ></v-text-field>
+      <v-text-field
+        label="country"
+        required
+        :rules="[required]"
+        v-model="event.country"
+      ></v-text-field>     
+      </panel>
+
       <panel title="Informations" class="ml-2">
         <v-text-field
           label="link of payment"
@@ -55,10 +87,6 @@
           v-model="event.description"
         ></v-text-field>
       </panel>
-
-      <!--<panel title="Informations" class="ml-2">
-        <HereAddressLookup :query="query"/>     
-      </panel>-->
 
       <div class="danger-alert" v-if="error">
         {{error}}
@@ -88,13 +116,16 @@ export default {
         title: null,
         owner: this.$store.getters.getUserName,
         genre: null,
-        city: null,
+        street: '',
+        city: '',
+        state: '',
+        postcode: '',
+        country: '',
         eventImageUrl: null,
         payLink: null,
         description: null,
         date: null
       },
-      query: '',
       error: null,
       required: (value) => !!value || 'Required.'
     }
@@ -106,7 +137,7 @@ export default {
         .keys(this.event)
         .every(key => !!this.event[key])
       if (!areAllFieldsFilledIn) {
-        this.error = 'Please fill in all the required fields.'
+        this.error = 'please fill all required fields.'
         return
       }
 
@@ -118,6 +149,43 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    validate: function (query) {
+      return fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=1ZRKH9KT9Pp92wxwUyT3m0iPudSL0rvlLmvaFunOtRY&searchtext=${query}`)
+          .then(result => result.json())
+          .then(result => {
+            if (result.Response.View.length > 0 && result.Response.View[0].Result.length > 0) {
+              let data = result.Response.View[0].Result[0]
+              return data
+            }
+          }, error => {
+            console.error(error)
+          })
+    },
+    query: function (value) {
+      fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=1ZRKH9KT9Pp92wxwUyT3m0iPudSL0rvlLmvaFunOtRY&query=${value}`)
+        .then(result => result.json())
+        .then(result => {
+          if (result.suggestions && result.suggestions.length > 0) {
+            if (result.suggestions[0].address.houseNumber && result.suggestions[0].address.street) {
+              this.event.street = result.suggestions[0].address.houseNumber + ' ' + result.suggestions[0].address.street
+            } else {
+              this.event.street = ''
+            }
+            this.event.city = result.suggestions[0].address.city ? result.suggestions[0].address.city : ''
+            this.event.state = result.suggestions[0].address.state ? result.suggestions[0].address.state : ''
+            this.event.postcode = result.suggestions[0].address.postalCode ? result.suggestions[0].address.postalCode : ''
+            this.event.country = result.suggestions[0].address.country ? result.suggestions[0].address.country : ''
+          } else {
+            this.event.street = ''
+            this.event.city = ''
+            this.event.state = ''
+            this.event.postCode = ''
+            this.event.country = ''
+          }
+        }, error => {
+          console.error(error)
+        })
     }
   }
 }
