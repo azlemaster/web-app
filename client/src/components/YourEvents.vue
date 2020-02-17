@@ -15,13 +15,8 @@
           <v-btn
             dark
             class="cyan"
-            :to="{
-              name: 'event', 
-              params: {
-                eventId: props.item.id
-              }
-            }">
-            View
+            @click="paymentLink(props.item.payLink)">
+            Booking
           </v-btn>
         </td>
         <td  style="width:90%; padding:0%;">
@@ -73,6 +68,11 @@ export default {
   async mounted () {
     if (this.isUserLoggedIn) {
       this.bookmarks = (await BookmarksService.index()).data
+    }
+  },
+  methods: {
+    async paymentLink (payLink) {
+      window.open(payLink)
     }
   }
 }
