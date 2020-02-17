@@ -70,7 +70,6 @@ export default {
 
       try {
         const response = await AuthenticationService.updateAccount(this.user)
-        console.log('response user: ', response.data)
         this.$store.commit('setUser', response.data)
         this.$router.push({
           name: 'user-edit'

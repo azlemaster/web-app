@@ -31,7 +31,6 @@ export default {
   components: {
   },
   data () {
-    console.log(this.$store.state.user)
     return {
       events: null
     }
