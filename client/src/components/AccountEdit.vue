@@ -1,5 +1,6 @@
 <template>
   <v-layout>
+    {{this.$store.getters.getId}}
     <v-flex xs12>
       <panel title="Account Informations">
         <v-text-field
@@ -45,8 +46,9 @@ export default {
   data () {
     return {
       user: {
+        id: this.$store.getters.getId,
         email: this.$store.getters.getUserEmail,
-        owner: this.$store.getters.getUserName,
+        name: this.$store.getters.getUserName,
         city: this.$store.state.user.city,
         description: this.$store.state.user.description,
         profilImageUrl: this.$store.state.user.profilImageUrl
@@ -67,12 +69,11 @@ export default {
       }
 
       try {
-        await AuthenticationService.put(this.user)
+        const response = await AuthenticationService.updateAccount(this.user)
+        console.log('response user: ', response.data)
+        this.$store.commit('setUser', response.data)
         this.$router.push({
-          name: 'user',
-          params: {
-            userId: this.$store.getters.userId
-          }
+          name: 'user-edit'
         })
       } catch (err) {
         console.log(err)

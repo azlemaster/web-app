@@ -12,6 +12,8 @@ module.exports = (app) => {
     AuthenticationController.register)
   app.post('/login',
     AuthenticationController.login)
+  app.put('/profil/:userId',
+    AuthenticationController.put)
 
   app.get('/events',
     EventsController.index)

@@ -35,7 +35,7 @@ module.exports = {
       res.send(event)
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to show the songs'
+        error: 'an error has occured trying to show the events'
       })
     }
   },
@@ -45,7 +45,7 @@ module.exports = {
       res.send(event)
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to create the song'
+        error: 'an error has occured trying to create the event'
       })
     }
   },
@@ -59,7 +59,7 @@ module.exports = {
       res.send(req.body)
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to update the song'
+        error: 'an error has occured trying to update the event'
       })
     }
   }

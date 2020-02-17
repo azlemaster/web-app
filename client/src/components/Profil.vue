@@ -31,9 +31,9 @@ export default {
   components: {
   },
   data () {
+    console.log(this.$store.state.user)
     return {
-      events: null,
-      userId: this.$store.getters.getUserId
+      events: null
     }
   },
   computed: {

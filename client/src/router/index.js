@@ -30,6 +30,11 @@ export default new Router({
       component: Profil
     },
     {
+      path: '/profil',
+      name: 'user-edit',
+      component: Profil
+    },
+    {
       path: '/your_events',
       name: 'your_events',
       component: YourEvents
