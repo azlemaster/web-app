@@ -137,7 +137,7 @@ export default {
         .keys(this.event)
         .every(key => !!this.event[key])
       if (!areAllFieldsFilledIn) {
-        this.error = this.event
+        this.error = 'please fill all required fields.'
         return
       }
 
