@@ -7,7 +7,7 @@
         :to="{
           name: 'events'
         }">
-        TabTracker
+        FindYourEvent
       </router-link>
     </v-toolbar-title>
 

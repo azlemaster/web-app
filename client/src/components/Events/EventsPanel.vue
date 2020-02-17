@@ -1,6 +1,6 @@
 <template>
   <panel title="Events">
-    <v-btn
+    <v-btn v-if="$store.state.isUserLoggedIn"
       slot="action"
       :to="{
         name: 'events-create'

@@ -24,8 +24,7 @@
           @click="paymentLink">
           Booking
         </v-btn>
-        <v-btn
-          v-if="this.$store.getters.getUserName == event.owner"
+        <v-btn v-if="$store.state.isUserLoggedIn && this.$store.getters.getUserName == event.owner"
           dark
           class="cyan"
           :to="{
