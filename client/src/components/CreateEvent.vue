@@ -137,7 +137,7 @@ export default {
         .keys(this.event)
         .every(key => !!this.event[key])
       if (!areAllFieldsFilledIn) {
-        this.error = 'please fill all required fields.'
+        this.error = this.event
         return
       }
 
@@ -169,6 +169,8 @@ export default {
           if (result.suggestions && result.suggestions.length > 0) {
             if (result.suggestions[0].address.houseNumber && result.suggestions[0].address.street) {
               this.event.street = result.suggestions[0].address.houseNumber + ' ' + result.suggestions[0].address.street
+            } else if (result.suggestions[0].address.street) {
+              this.event.street = result.suggestions[0].address.street
             } else {
               this.event.street = ''
             }
@@ -180,7 +182,7 @@ export default {
             this.event.street = ''
             this.event.city = ''
             this.event.state = ''
-            this.event.postCode = ''
+            this.event.postcode = ''
             this.event.country = ''
           }
         }, error => {

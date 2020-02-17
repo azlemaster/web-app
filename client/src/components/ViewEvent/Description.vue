@@ -1,5 +1,6 @@
 <template>
   <panel title="Description">
+    <img :src="'https://image.maps.ls.hereapi.com/mia/1.6/mapview?apiKey=1ZRKH9KT9Pp92wxwUyT3m0iPudSL0rvlLmvaFunOtRY&co=' + event.country + '&ci=' + event.city + '&zi=' + event.postcode + '&s=' + event.street + '&z=170&h=240&f=1'">
     <textarea
       readonly
       v-model="event.description"
