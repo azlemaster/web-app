@@ -17,7 +17,7 @@
     "@mdi/js": "^4.9.95",
     "axios": "^0.19.2",
     "lodash": "^4.17.15",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-clickaway": "^2.2.2",
